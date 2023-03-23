@@ -1,0 +1,45 @@
+<div class="container row">
+    <div class="col-lg-6">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="btnradio0"
+                (click)="filtermovie('Movie_List')">Movie_List</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio1" (click)="filtermovie('Comedy')">Comedy_Movie</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2" (click)="filtermovie('Action')">Action_Movie</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3" (click)="filtermovie('Horror')">Horror_Movie</label>
+        </div>
+    </div>
+    <div class="container col-lg-6">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="movie_name"
+            name="movie_name">
+    </div>
+</div>
+
+
+
+<div class="row mt-3">
+    <div class="col-lg-4" *ngFor="let movie_list of filtered_movie">
+        <div class="card" [style.width.rem]="card_width" [style.border]="card_border">
+            <img [src]="movie_list.img" class="card-img-top" alt="...">
+            <div class="card-body" [class.bg-color]="movie_list.bg_color">
+                <!-- <h5 class="card-title">Movie_Name : {{movie_list.name | uppercase}}</h5> -->
+                <h5 class="card-title" [title]="movie_list.name">Movie_Name : {{movie_list.name | titlecase | slice : 0
+                    : 2}}...</h5>
+                <!-- <h5 class="card-title">Movie_Name : {{movie_list.name| lowercase}}</h5> -->
+                <p class="card-text">Ticket_Price : {{movie_list.price | currency : 'INR' : true : '0.0-2'}}</p>
+                <p class="card-text">Release_Date : {{movie_list.release_date | date : 'MMM d, y'}}</p>
+                <p class="card-text">Ratings : <app-rating [ratingsx]="movie_list.rating"
+                        (to_parent)="from_child($event)"></app-rating> </p>
+                <p class="card-text">Genere : {{movie_list.genere}}</p>
+                <p class="card-text">Genere : {{movie_list.movie_code | custompipe : ":"}}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
